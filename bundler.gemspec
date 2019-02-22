@@ -47,8 +47,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec",      "~> 3.6"
   s.add_development_dependency "rubocop",    "= 0.65.0"
 
-  base_dir = File.dirname(__FILE__).gsub(%r{([^A-Za-z0-9_\-.,:\/@\n])}, "\\\\\\1")
-  s.files = Dir.glob("{lib,exe}/**/*", File::FNM_DOTMATCH, :base => base_dir).reject {|f| File.directory?(File.expand_path(f, base_dir)) }
+  s.files = Dir.glob("{lib,exe}/**/*", File::FNM_DOTMATCH).reject {|f| File.directory?(f) }
 
   # we don't check in man pages, but we need to ship them because
   # we use them to generate the long-form help for each command.

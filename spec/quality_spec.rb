@@ -238,13 +238,15 @@ RSpec.describe "The library itself" do
   end
 
   it "ships the correct set of files" do
-    base_dir = File.dirname(__dir__).gsub(%r{([^A-Za-z0-9_\-.,:\/@\n])}, "\\\\\\1")
-    git_list = IO.popen("git -C #{base_dir} ls-files -z", &:read).split("\x0").select {|f| f.match(%r{^(lib|exe)/}) }
-    git_list += %w[CHANGELOG.md LICENSE.md README.md bundler.gemspec]
+    Dir.chdir(root) do
+      git_list = IO.popen("git ls-files -z", &:read).split("\x0").select {|f| f.match(%r{^(lib|exe)/}) }
+      git_list += %w[CHANGELOG.md LICENSE.md README.md bundler.gemspec]
+      git_list += Dir.glob("man/**/*")
 
-    gem_list = Gem::Specification.load(gemspec.to_s).files
+      gem_list = Gem::Specification.load(gemspec.to_s).files
 
-    expect(git_list.to_set).to eq(gem_list.to_set)
+      expect(git_list.to_set).to eq(gem_list.to_set)
+    end
   end
 
   it "does not contain any warnings" do
