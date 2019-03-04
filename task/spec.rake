@@ -87,7 +87,7 @@ namespace :spec do
 
   task :clean_sudo do
     puts "Cleaning up sudo test files..."
-    system "sudo rm -rf #{File.expand_path("../tmp/sudo_gem_home", __FILE__)}"
+    system "sudo rm -rf #{File.expand_path("../tmp/sudo_gem_home", __dir__)}"
   end
 
   # RubyGems specs by version
@@ -166,7 +166,7 @@ namespace :spec do
     puts "\n\e[1;33m[Travis CI] Running bundler sudo specs against RubyGems #{rg}\e[m\n\n"
     sudos = system("sudo -E rake spec:rubygems:#{rg}:sudo")
     # clean up by chowning the newly root-owned tmp directory back to the travis user
-    system("sudo chown -R #{ENV["USER"]} #{File.join(File.dirname(__FILE__), "tmp")}")
+    system("sudo chown -R #{ENV["USER"]} #{File.join(File.dirname(__dir__), "tmp")}")
 
     Rake::Task["spec:rubygems:#{rg}"].reenable
 
