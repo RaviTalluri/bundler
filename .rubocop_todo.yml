@@ -579,11 +579,10 @@ Style/RescueStandardError:
 Style/SafeNavigation:
   Enabled: false
 
-# Offense count: 4
+# Offense count: 3
 # Cop supports --auto-correct.
 Style/StderrPuts:
   Exclude:
-    - 'bin/rake'
     - 'lib/bundler/graph.rb'
     - 'spec/support/artifice/compact_index_api_missing.rb'
     - 'spec/support/artifice/endpoint_api_missing.rb'
